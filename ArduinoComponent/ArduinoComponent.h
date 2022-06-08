@@ -11,6 +11,7 @@ namespace arduino
         ArduinoComponent(int pin)
         int getPin();
         void setPin(int pin);
+        void updateState();
     }
 }
 

@@ -1,6 +1,6 @@
 #include"ArduinoComponent.h"
 
-using namespace arduino
+using namespace components
 
 ArduinoComponent::ArduinoComponent(int pin)
 {
