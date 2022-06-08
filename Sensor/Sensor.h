@@ -1,5 +1,6 @@
 #ifndef Sensor
 
+#include<Arduino.h>
 #include"ArduinoComponent.h"
 
 namespace components

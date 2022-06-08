@@ -1,3 +1,4 @@
+#include<Arduino.h>
 #include"Sensor.h"
 #include"ArduinoComponent.h"
 

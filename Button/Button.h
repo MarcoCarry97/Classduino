@@ -1,5 +1,6 @@
 #ifndef Button
 
+#include<Arduino.h>
 #include"ArduinoComponent.h"
 #include"OnClick.h"
 
