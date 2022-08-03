@@ -1,6 +1,6 @@
 #include"Led.h"
 
-Led::Led(int pin) : ArduinoObject(pin)
+Led::Led(int pin) : BasicComponent(pin)
 {
     intensity=0;
 }
@@ -18,4 +18,9 @@ void Led::turnOn(int intensity)
 void Led::turnOff()
 {
     intensity=0;
+}
+
+void BasicComponent::updateState()
+{
+    digitalRead(pin,intensity);
 }

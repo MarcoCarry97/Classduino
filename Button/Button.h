@@ -8,7 +8,7 @@ using namespace interfaces;
 
 namespace components
 {
-    class Button : public ArduinoComponent, virtual OnClick
+    class Button : public BasicComponent, virtual OnClick
     {
         private:
             bool enableAbilitation;

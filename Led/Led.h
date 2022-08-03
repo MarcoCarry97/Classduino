@@ -3,7 +3,7 @@
 
 namespace components
 {
-    class Led : public ArduinoComponent
+    class Led : public BasicComponent
     {
         private:
             int intensity;

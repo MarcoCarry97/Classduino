@@ -5,7 +5,7 @@
 
 namespace components
 {
-    virtual class Sensor : public ArduinoComponent
+    virtual class Sensor : public BasicComponent
     {
         private:
             float value;

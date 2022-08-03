@@ -7,7 +7,7 @@ using namespace components;
 Sensor::Sensor(int pin):public ArduinoComponent(pin)
 {
     value=0;
-    //pinmode
+    pinMode(pin,INPUT);
 }
 
 float Sensor::getValue()
@@ -17,5 +17,5 @@ float Sensor::getValue()
 
 float Sensor::updateState()
 {
-    //analog read value
+    value=analogRead(pin);
 }
