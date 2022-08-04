@@ -1,18 +1,23 @@
-#include"ArduinoComponent.h"
+#include"BasicComponent.h"
 
-using namespace components
+using namespace components;
 
-ArduinoComponent::ArduinoComponent(int pin)
+BasicComponent::BasicComponent()
 {
-    this->pin=pin
-};
 
-int ArduinoComponent::getPin()
+}
+
+BasicComponent::BasicComponent(int pin)
+{
+    this->pin=pin;
+}
+
+int BasicComponent::getPin()
 {
     return pin;
 }
 
-void ArduinoComponent::setPin(int pin)
+void BasicComponent::setPin(int pin)
 {
     this->pin=pin;
 }

@@ -1,14 +1,12 @@
+#pragma once
 #ifndef Button
 
 #include<Arduino.h>
-#include"ArduinoComponent.h"
-#include"OnClick.h"
-
-using namespace interfaces;
+#include"../BasicComponent/BasicComponent.h"
 
 namespace components
 {
-    class Button : public BasicComponent, virtual OnClick
+    class Button : public BasicComponent
     {
         private:
             bool enableAbilitation;
@@ -17,10 +15,13 @@ namespace components
             bool oldState;
 
         public:
+            Button();
             Button(int pin,bool enableAbilitation);
             bool isAbilitationEnabled();
             bool getCurrentState();
-    }
+            bool getAbilitation();
+            void updateState();
+    };
 }
 
 

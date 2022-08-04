@@ -1,17 +1,21 @@
 #ifndef Sensor
-
+#pragma once
 #include<Arduino.h>
-#include"ArduinoComponent.h"
+#include"../BasicComponent/BasicComponent.h"
 
 namespace components
 {
-    virtual class Sensor : public BasicComponent
+    class Sensor : public BasicComponent
     {
         private:
             float value;
 
         public:
+            Sensor();
             Sensor(int pin);
             float getValue();
-    }
-}
+            void updateState();
+    };
+};
+
+#endif

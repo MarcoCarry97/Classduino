@@ -1,10 +1,16 @@
+
 #include<Arduino.h>
 #include"Sensor.h"
-#include"ArduinoComponent.h"
+#include"../BasicComponent/BasicComponent.h"
 
 using namespace components;
 
-Sensor::Sensor(int pin):public ArduinoComponent(pin)
+Sensor::Sensor()
+{
+
+}
+
+Sensor::Sensor(int pin): BasicComponent(pin)
 {
     value=0;
     pinMode(pin,INPUT);
@@ -15,7 +21,7 @@ float Sensor::getValue()
     return value;
 }
 
-float Sensor::updateState()
+void Sensor::updateState()
 {
     value=analogRead(pin);
 }
