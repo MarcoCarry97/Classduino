@@ -1,5 +1,6 @@
+#pragma once
 #ifndef Led
-#include"ArduinoComponent.h"
+#include"../BasicComponent/BasicComponent.h"
 
 namespace components
 {
@@ -9,12 +10,14 @@ namespace components
             int intensity;
 
         public:
+            Led();
             Led(int pin);
             int getIntensity();
             void turnOn(int intensity);
             void turnOff();
+            void updateState();
 
-    }
+    };
 }
 
 #endif

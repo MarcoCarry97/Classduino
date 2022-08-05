@@ -1,4 +1,13 @@
+#include<Arduino.h>
 #include"Led.h"
+#include"../BasicComponent/BasicComponent.h"
+
+using namespace components;
+
+Led::Led()
+{
+    
+}
 
 Led::Led(int pin) : BasicComponent(pin)
 {
@@ -20,7 +29,7 @@ void Led::turnOff()
     intensity=0;
 }
 
-void BasicComponent::updateState()
+void Led::updateState()
 {
-    digitalRead(pin,intensity);
+    digitalWrite(pin,intensity);
 }

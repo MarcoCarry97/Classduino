@@ -1,8 +1,15 @@
+
+
 #include"Button.h"
 
 using namespace components;
 
-Button::Button(int pin, bool enableAbilitation=false) : ArduinoComponent(pin)
+Button::Button()
+{
+
+}
+
+Button::Button(int pin, bool enableAbilitation=false) : BasicComponent(pin)
 {
     this->enableAbilitation=enableAbilitation;
     currentState=false;
@@ -21,12 +28,15 @@ void Button::updateState()
     currentState=digitalRead(pin);
     if(this->isAbilitationEnabled())
     {
-        if(!currentState && oldState)
-            abilitation=1-abilitation
-        oldState=currentState;
-        if(abilitation==1)
-            onClick();
+        if(currentState==HIGH && oldState==LOW)
+            abilitation=1-abilitation;
     }
-    else if(currentState)
-        onClick();
+    oldState=currentState;
 }
+
+bool Button::getAbilitation()
+{
+    if(!isAbilitationEnabled()) return false;
+    else return abilitation;
+}
+
