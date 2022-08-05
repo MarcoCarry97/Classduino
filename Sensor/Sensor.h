@@ -9,6 +9,8 @@ namespace components
     {
         private:
             float value;
+            float toCelsius();
+            double steinhartHart(double r);
 
         public:
             Sensor();
