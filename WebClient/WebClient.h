@@ -3,7 +3,8 @@
 #include<Arduino.h>
 #include<Ethernet.h>
 #include<SPI.h>
-
+#include<string>
+#include<HttpClient.h>
 #include"../MacAddress/MacAddress.h"
 
 #ifndef WebClient
@@ -17,6 +18,7 @@ namespace internet
             IpAddress ip;
             IpAddress dns;
             EthernetClient client;
+            HttpClient http;
 
         public:
             WebClient();
@@ -31,6 +33,10 @@ namespace internet
             byte *read();
             void write(byte*buffer,int len);
             void stop();
+            bool create(string url, map<string,void*> params);
+            string read(string url, map<string,void*> params);
+            bool update(string url, map<string,void*> params);
+            bool cancel(string url, map<string,void*> params);
     };
 };
 
