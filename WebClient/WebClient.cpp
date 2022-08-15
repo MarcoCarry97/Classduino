@@ -15,7 +15,6 @@ WebClient::WebClient()
     ip=IpAddress();
     dns=IpAddress();
     client=EthernetClient();
-    http=HttpClient(client);
 }
 
 WebClient(MacAddress mac,IpAddress dns) : WebClient()
@@ -82,106 +81,120 @@ void WebClient::stop()
     client.stop();
 }
 
-string WebClient::create(string url,map<string,void*> params)
+string WebClient::create(string host,int port,string path,map<string,void*> params)
 {
-    if(isConnected())
+    string method="POST";
+    bool first=true;
+    String data="";
+    for(auto iter=params.begin();iter!params.end();iter++)
     {
-        bool first=true;
-        String path=url;
-        String data="";
-        for(auto iter=params.begin();iter!params.end();iter++)
+        if(first)
         {
-            if(first)
-            {
-                data+=iter.first()+"="+iter.second();
-            }
-            else data+="&"+iter.first()+"="+iter.second();
-            http.begin(path);
-            http.addHeader("Content-Type","application/x-www-form-urlencoded");
-            int responseCode=http.POST(data);
-            if(responseCode>0)
-            {
-                return http.getString();
-            }
-            else return "Error "+responseCode;
+            data+=iter.first()+"="+iter.second();
+            first=false;
+        }
+        else data+="&"+iter.first()+"="+iter.second();
+    }
+    client.println(method+" "+path" HTTP/1.1");
+    client.println("Host: "+host);
+    client.println("Connection: close");
+    client.println();
+    client.println(data);
+    string response="";
+    while (isConnected())
+    {
+        if(isAvailable())
+        {
+            response+=client.read();
         }
     }
-    else return "Not connected";
+    return response;
 }
 
 string WebClient::read(string url,map<string, void*> params)
 {
-    if(isConnected())
+    string method="GET";
+    bool first=true;
+    String data="";
+    for(auto iter=params.begin();iter!params.end();iter++)
     {
-        bool first=true;
-        String path=url;
-        for(auto iter=params.begin();iter!params.end();iter++)
+        if(first)
         {
-            if(first)
-            {
-                path+="?"+iter.first()+"="+iter.second();
-            }
-            else path+="&"+iter.first()+"="+iter.second();
-            http.begin(path);
-            int responseCode=http.GET();
-            if(responseCode>0)
-            {
-                return http.getString();
-            }
-            else return "Error "+responseCode;
+            data+=iter.first()+"="+iter.second();
+            first=false;
+        }
+        else data+="&"+iter.first()+"="+iter.second();
+    }
+    client.println(method+" "+path" HTTP/1.1");
+    client.println("Host: "+host);
+    client.println("Connection: close");
+    client.println();
+    string response="";
+    while (isConnected())
+    {
+        if(isAvailable())
+        {
+            response+=client.read();
         }
     }
-    else return "Not connected";
+    return response;
 }
 
 string WebClient::update(string url,map<string, void*> params)
 {
-    if(isConnected())
+    string method="PUT";
+    bool first=true;
+    String data="";
+    for(auto iter=params.begin();iter!params.end();iter++)
     {
-        bool first=true;
-        String path=url;
-        String data="";
-        for(auto iter=params.begin();iter!params.end();iter++)
+        if(first)
         {
-            if(first)
-            {
-                path+=iter.first()+"="+iter.second();
-            }
-            else path+="&"+iter.first()+"="+iter.second();
-            http.begin(path);
-            http.addHeader("Content-Type","application/x-www-form-urlencoded");
-            int responseCode=http.PUT(data);
-            if(responseCode>0)
-            {
-                return http.getString();
-            }
-            else return "Error "+responseCode;
+            data+=iter.first()+"="+iter.second();
+            first=false;
+        }
+        else data+="&"+iter.first()+"="+iter.second();
+    }
+    client.println(method+" "+path" HTTP/1.1");
+    client.println("Host: "+host);
+    client.println("Connection: close");
+    client.println();
+    client.println(data);
+    string response="";
+    while (isConnected())
+    {
+        if(isAvailable())
+        {
+            response+=client.read();
         }
     }
-    else return "Not connected";
+    return response;
 }
 
-string WebClient::delete(string url,map<string, void*> params)
+string WebClient::cancel(string url,map<string, void*> params)
 {
-    if(isConnected())
+    string method="DELETE";
+    bool first=true;
+    String data="";
+    for(auto iter=params.begin();iter!params.end();iter++)
     {
-        bool first=true;
-        String path=url;
-        for(auto iter=params.begin();iter!params.end();iter++)
+        if(first)
         {
-            if(first)
-            {
-                path+="?"+iter.first()+"="+iter.second();
-            }
-            else path+="&"+iter.first()+"="+iter.second();
-            http.begin(path);
-            int responseCode=http.DELETE();
-            if(responseCode>0)
-            {
-                return http.getString();
-            }
-            else return "Error "+responseCode;
+            data+="?"+iter.first()+"="+iter.second();
+            first=false;
+        }
+        else data+="&"+iter.first()+"="+iter.second();
+    }
+    client.println(method+" "+path+data" HTTP/1.1");
+    client.println("Host: "+host);
+    client.println("Connection: close");
+    client.println();
+    string response="";
+    while (isConnected())
+    {
+        if(isAvailable())
+        {
+            response+=client.read();
         }
     }
-    else return "Not connected";
+    return response;
 }
